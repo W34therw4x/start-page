@@ -1,12 +1,12 @@
 {
-  "name": "sls-random",
+  "name": "sls-news",
   "version": "1.0.0",
-  "description": "A serverless service that returns a random number.",
+  "description": "A serverless service that returns news",
   "main": "dist/index.js",
   "files": [
     "dist"
   ],
-  "author": "Tom Medema",
+  "author": "Rafal Ostrowski",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -17,14 +17,23 @@
   },
   "dependencies": {
     "@org/random": "^1.0.0",
-    "aws-lambda": "^0.1.2"
+    "@serverless-chrome/lambda": "^1.0.0-55",
+    "aws-lambda": "^0.1.2",
+    "chrome-launcher": "^0.10.5",
+    "puppeteer": "^1.12.2",
+    "superagent": "^4.1.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.11",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.7.1",
+    "@types/puppeteer": "^1.12.1",
+    "@types/superagent": "^3.8.6",
+    "chrome-launcher": "^0.10.5",
     "mocha": "^5.2.0",
     "serverless": "^1.30.1",
+    "serverless-offline": "4.5.0",
+    "serverless-plugin-chrome": "^1.0.0-55",
     "serverless-plugin-scripts": "^1.0.2",
     "ts-node": "^8.0.2",
     "tsconfig-paths": "^3.5.0",

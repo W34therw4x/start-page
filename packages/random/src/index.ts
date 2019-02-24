@@ -1,4 +1,4 @@
-import camelCase from 'camelcase'
+import camelCase from 'camelcase';
 
 export const fetchRandomNumber = async (): Promise<number> => {
   const randomNr = await new Promise<number>(resolve =>
@@ -12,7 +12,7 @@ export const fetchRandomNumber = async (): Promise<number> => {
         ),
       500
     )
-  )
+  );
 
-  return randomNr
-}
+  return randomNr;
+};

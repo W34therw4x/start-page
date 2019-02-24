@@ -1,9 +1,9 @@
-import { fetchRandomNumber as fetchNumber } from '@org/random'
+import { fetchRandomNumber as fetchNumber } from '@org/random';
 import {
   APIGatewayEventRequestContext,
   APIGatewayProxyEvent,
   APIGatewayProxyResult
-} from 'aws-lambda'
+} from 'aws-lambda';
 
 export const fetchRandomNumber = async (
   event: APIGatewayProxyEvent,
@@ -14,17 +14,17 @@ export const fetchRandomNumber = async (
     fetchRandomNumber fired with:
     event: ${JSON.stringify(event)}
     context: ${JSON.stringify(context)}
-  `)
+  `);
 
-  const randomNr = await fetchNumber()
+  const randomNr = await fetchNumber();
 
   // tslint:disable-next-line: no-console
   console.log(`
     fetched number: ${randomNr}
-  `)
+  `);
 
   return {
     body: `Your special number is: ${randomNr}`,
     statusCode: 200
-  }
-}
+  };
+};

@@ -5,7 +5,7 @@ declare module 'camelcase' {
   export default function camelCase(
     strs: string | string[],
     options?: {
-      pascalCase?: boolean
+      pascalCase?: boolean;
     }
-  ): string
+  ): string;
 }
