@@ -1,6 +1,25 @@
 import puppeteer from 'puppeteer';
 import { getChrome } from './chromeClient';
 
+const dummyData = {
+  options: {
+    number: 5,
+    onLoadSteps: [
+      {
+        action: 'click',
+        selector: ''
+      }
+    ]
+  },
+  selectors: {
+    container: '.postItem + div',
+    description: 'a > div',
+    link: 'a',
+    title: 'h3 div'
+  },
+  url: 'https://hackernoon.com/latest-tech-stories/home'
+};
+
 /* in (cnn proof of concept):
   {
     selectors: {
@@ -33,17 +52,30 @@ import { getChrome } from './chromeClient';
   }
 */
 export const hello = async (event: any) => {
-  const url = 'https://www.pclab.pl';
+  const url = dummyData.url;
   const chrome = await getChrome();
   const browser = await puppeteer.connect({
     browserWSEndpoint: chrome.endpoint
   });
   const page = await browser.newPage();
   await page.goto(url, { waitUntil: 'networkidle0' });
-  const title = await page.title();
+  const scrapedData = await page.evaluate(
+    data =>
+      Array.from(document.querySelectorAll(data.selectors.container)).map(
+        article => ({
+          description: article.querySelector(data.selectors.description)!
+            .textContent,
+          link: article
+            .querySelector(data.selectors.link)!
+            .getAttribute('href'),
+          title: article.querySelector(data.selectors.title)!.textContent
+        })
+      ),
+    dummyData
+  );
   await browser.close();
   return {
-    statusCode: 200,
-    title
+    scrapedData,
+    statusCode: 200
   };
 };
