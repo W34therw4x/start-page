@@ -5,6 +5,5 @@
     "rootDir": "./src",
     "skipLibCheck": true
   },
-  "include": ["src"],
-  "references": [{ "path": "../random" }]
+  "include": ["src"]
 }
