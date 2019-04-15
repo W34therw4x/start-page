@@ -1,21 +1,24 @@
-service: org-news
+service: org-tasker
 
 plugins:
   - serverless-plugin-scripts
-  - serverless-offline
-  - serverless-plugin-chrome
+  - serverless-pseudo-parameters
 
 package:
   exclude:
     - ./**
     - '!dist/**'
     - '!node_modules/**'
-    - node_modules/puppeteer/.local-chromium/**
     
 provider:
   name: aws
   stage: ${{opt:stage, 'dev'}}
   region: ${{opt:region, 'eu-north-1'}}
+
+  environment:
+    accountId: '#{AWS::AccountId}'
+    region: '#{AWS::Region}'
+
   iamRoleStatements:
     - Effect: "Allow"
       Resource: "*"
@@ -33,8 +36,8 @@ provider:
     VERSION: ${{file(./package.json):version}}
 
   runtime: nodejs8.10
-  memorySize: 768
-  timeout: 60
+  memorySize: 256
+  timeout: 3
 
 custom:
   scripts:
@@ -42,10 +45,7 @@ custom:
       'before:deploy:createDeploymentArtifacts': yarn run build
 
 functions:
-  fetch-news:
-    handler: dist/index.hello
-    events:
-        - sns: fetch-news
-      # - http:
-      #     path: /
-      #     method: get
+  publish-tasks:
+    handler: dist/index.tasker
+    # events:
+    #   - schedule: rate(1 hour)

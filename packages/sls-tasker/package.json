@@ -1,0 +1,32 @@
+{
+  "name": "sls-tasker",
+  "version": "1.0.0",
+  "description": "A serverless service that triggers other services based on configuration from DB",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "author": "Rafal Ostrowski",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "tsc -b .",
+    "test": "jest",
+    "package": "serverless package",
+    "deploy": "serverless deploy"
+  },
+  "dependencies": {
+    "aws-lambda": "^0.1.2",
+    "aws-sdk": "^2.437.0",
+    "serverless-pseudo-parameters": "^2.4.0"
+  },
+  "devDependencies": {
+    "@org/types": "^1.0.0",
+    "@types/aws-lambda": "^8.10.11",
+    "@types/node": "^11.13.4",
+    "serverless": "^1.30.1",
+    "serverless-plugin-scripts": "^1.0.2",
+    "tsconfig-paths": "^3.5.0",
+    "typescript": "^3.2.4"
+  }
+}
