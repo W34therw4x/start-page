@@ -1,4 +1,8 @@
 {
   "files": [],
-  "references": [{ "path": "./sls-news" }]
+  "references": [
+    { "path": "./sls-news" },
+    { "path": "./sls-tasker" },
+    { "path": "./types" }
+  ]
 }

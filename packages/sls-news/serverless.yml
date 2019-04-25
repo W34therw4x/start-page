@@ -2,30 +2,36 @@ service: org-news
 
 plugins:
   - serverless-plugin-scripts
+  - serverless-pseudo-parameters
   - serverless-offline
   - serverless-plugin-chrome
 
 package:
   exclude:
     - ./**
-    - '!dist/**'
-    - '!node_modules/**'
+    - "!dist/**"
+    - "!node_modules/**"
     - node_modules/puppeteer/.local-chromium/**
-    
+
 provider:
   name: aws
   stage: ${{opt:stage, 'dev'}}
   region: ${{opt:region, 'eu-north-1'}}
+
+  environment:
+    accountId: "#{AWS::AccountId}"
+    region: "#{AWS::Region}"
+
   iamRoleStatements:
     - Effect: "Allow"
       Resource: "*"
       Action:
         - "sns:*"
-  
+
   # use ${{}} to access serverless variables
   # this is necessary because cloudformation uses ${} syntax
   variableSyntax: "\\${{([ ~:a-zA-Z0-9._\\'\",\\-\\/\\(\\)]+?)}}"
-      
+
   stackTags:
     SERVICE: ${{self:service}}
     STAGE: ${{self:provider.stage}}
@@ -39,13 +45,13 @@ provider:
 custom:
   scripts:
     hooks:
-      'before:deploy:createDeploymentArtifacts': yarn run build
+      "before:deploy:createDeploymentArtifacts": yarn run build
 
 functions:
   fetch-news:
     handler: dist/index.hello
     events:
-        - sns: fetch-news
+      - sns: fetch-news
       # - http:
       #     path: /
       #     method: get

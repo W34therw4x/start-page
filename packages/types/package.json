@@ -1,6 +1,19 @@
 {
   "name": "@org/types",
   "version": "1.0.0",
-  "description": "external type definitions",
-  "private": true
+  "description": "common type definitions",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "author": "Rafal Ostrowski",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "tsc -b ."
+  },
+  "devDependencies": {
+    "tsconfig-paths": "^3.5.0",
+    "typescript": "^3.2.4"
+  }
 }

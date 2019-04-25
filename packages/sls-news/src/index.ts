@@ -1,5 +1,9 @@
+import { INewsMessageObject } from '@org/types';
+// import AWS = require("aws-sdk");
 import puppeteer from 'puppeteer';
-import { getChrome } from './chromeClient';
+import { getChrome } from './chrome-client';
+// to be continued
+// const sns = new AWS.SNS({ region: process.env.region });
 
 /* out
   {
@@ -13,7 +17,7 @@ import { getChrome } from './chromeClient';
   }
 */
 export const hello = async (event: any) => {
-  const message = JSON.parse(event.Records[0].Sns.Message);
+  const message: INewsMessageObject = JSON.parse(event.Records[0].Sns.Message);
   const url = message.url;
   const chrome = await getChrome();
   const browser = await puppeteer.connect({
@@ -22,18 +26,16 @@ export const hello = async (event: any) => {
   const page = await browser.newPage();
   await page.goto(url, { waitUntil: 'networkidle0' });
   const scrapedData = await page.evaluate(
-    data =>
-      Array.from(document.querySelectorAll(data.selectors.container)).map(
+    selectors =>
+      Array.from(document.querySelectorAll(selectors.container)).map(
         article => ({
-          description: article.querySelector(data.selectors.description)!
+          description: article.querySelector(selectors.description)!
             .textContent,
-          link: article
-            .querySelector(data.selectors.link)!
-            .getAttribute('href'),
-          title: article.querySelector(data.selectors.title)!.textContent
+          link: article.querySelector(selectors.link)!.getAttribute('href'),
+          title: article.querySelector(selectors.title)!.textContent
         })
       ),
-    message
+    JSON.stringify(message.selectors)
   );
   await browser.close();
 
