@@ -49,7 +49,7 @@ custom:
 
 functions:
   fetch-news:
-    handler: dist/index.hello
+    handler: dist/index.fetchNewsHandler
     events:
       - sns: fetch-news
       # - http:

@@ -13,8 +13,7 @@ interface INewsMessageOptionsInitialAction {
   action: 'click' | 'remove';
   selector: string;
 }
-
-interface INewsMessageSelectors {
+export interface INewsMessageSelectors {
   container: string;
   description: string;
   link: string;
