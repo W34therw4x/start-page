@@ -1,7 +1,7 @@
 {
-  "name": "@org/types",
+  "name": "@org/sls-news-types",
   "version": "1.0.0",
-  "description": "common type definitions",
+  "description": "sls-news type definitions",
   "main": "dist/index.js",
   "files": [
     "dist"

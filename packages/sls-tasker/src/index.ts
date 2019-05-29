@@ -1,13 +1,13 @@
 import AWS = require('aws-sdk');
 const sns = new AWS.SNS({ region: process.env.region });
 
-function generateResponse(code, payload) {
+function generateResponse(code: number, payload: object) {
   return {
     body: JSON.stringify(payload),
     statusCode: code
   };
 }
-function generateError(code, err) {
+function generateError(code: number, err: Error) {
   return generateResponse(code, {
     message: err.message
   });

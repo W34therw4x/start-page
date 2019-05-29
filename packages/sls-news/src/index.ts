@@ -1,7 +1,6 @@
-import { INewsMessageObject } from '@org/types';
+import { INewsMessageObject } from '@org/sls-news-types';
 // import AWS = require("aws-sdk");
-import { ChromeClient } from './chrome-client';
-// to be continued
+import { ChromeService } from './chrome-service';
 // const sns = new AWS.SNS({ region: process.env.region });
 
 export const isNewsMessageObject = (arg: any): arg is INewsMessageObject => {
@@ -9,14 +8,18 @@ export const isNewsMessageObject = (arg: any): arg is INewsMessageObject => {
 };
 
 export const fetchNewsHandler = async (event: any) => {
-  const message: INewsMessageObject = JSON.parse(event.Records[0].Sns.Message);
+  const message: INewsMessageObject = JSON.parse(event.Records[0].Sns.Message)
+    .message;
   if (isNewsMessageObject(message)) {
-    const chrome = await ChromeClient.getInstance();
-    const scrapedData = await chrome.fetchNews(message.url, message.selectors);
-    await ChromeClient.browser.close();
+    const chromeService = await ChromeService.getInstance();
+    const blankPage = await chromeService.getNewPage();
+    const page = await chromeService.goToUrl(blankPage, message.url);
+    const scrapedData = await chromeService.fetchNews(page, message.selectors);
+    await chromeService.closeBrowser();
     return {
-      scrapedData,
-      statusCode: 200
+      message: scrapedData,
+      statusCode: 200,
+      task: 'asdf'
     };
   }
   return;

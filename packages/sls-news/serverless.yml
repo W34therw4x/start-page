@@ -28,8 +28,6 @@ provider:
       Action:
         - "sns:*"
 
-  # use ${{}} to access serverless variables
-  # this is necessary because cloudformation uses ${} syntax
   variableSyntax: "\\${{([ ~:a-zA-Z0-9._\\'\",\\-\\/\\(\\)]+?)}}"
 
   stackTags:
@@ -52,6 +50,3 @@ functions:
     handler: dist/index.fetchNewsHandler
     events:
       - sns: fetch-news
-      # - http:
-      #     path: /
-      #     method: get

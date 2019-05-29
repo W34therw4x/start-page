@@ -21,7 +21,7 @@
     "serverless-pseudo-parameters": "^2.4.0"
   },
   "devDependencies": {
-    "@org/types": "^1.0.0",
+    "@org/sls-news-types": "^1.0.0",
     "@types/aws-lambda": "^8.10.11",
     "@types/node": "^11.13.4",
     "serverless": "^1.30.1",

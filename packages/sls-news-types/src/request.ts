@@ -19,3 +19,8 @@ export interface INewsMessageSelectors {
   link: string;
   title: string;
 }
+export interface INewsMessageResponseObject {
+  description: string;
+  link: string;
+  title: string;
+}

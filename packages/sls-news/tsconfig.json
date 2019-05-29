@@ -6,5 +6,5 @@
     "skipLibCheck": true
   },
   "include": ["src"],
-  "references": [{ "path": "../types" }]
+  "references": [{ "path": "../sls-news-types" }]
 }

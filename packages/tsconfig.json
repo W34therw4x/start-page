@@ -3,6 +3,6 @@
   "references": [
     { "path": "./sls-news" },
     { "path": "./sls-tasker" },
-    { "path": "./types" }
+    { "path": "./sls-news-types" }
   ]
 }
